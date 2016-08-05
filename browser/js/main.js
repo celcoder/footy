@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('footy', ['ui.router', 'ngAnimate', 'ui.bootstrap'])
+var app = angular.module('footy', ['ui.router', 'ngAnimate', 'ui.bootstrap', 'ngSanitize'])
 .run(function($state, $rootScope) {
     $state.go('home');  
 });

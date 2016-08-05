@@ -7,7 +7,7 @@ module.exports = router;
 router.get('/:criteria', function(req, res, next){
 
 var opts = {
-  maxResults: 10,
+  maxResults: 1,
   key: 'AIzaSyB6z5O8u-Tyo2wTgw8UeMpN-JIFXOQHzfA',
   publishedAfter: '2016-08-02T00:00:00Z',
   videoSyndicated: 'true',
