@@ -1,25 +1,28 @@
 'use strict';
 
-app.factory('FootyFactory', function ($http) {
+app.factory('FootyFactory', function($http) {
 
-var footy = {};
+  var footy = {};
 
-	footy.getMatches = function (){
-		return $http.get('/api/scraper')
-		.then(function(matches){
-			return matches.data
-		})
-		// .then(matches => return matches.data)
-	}
+  var getData = function(res) {
+    return res.data;
+  }
 
-	footy.getVideos = function (criteria){
-		return $http.get('/api/query/' + criteria)
-		.then(function(videos){
-			return videos.data
-		})
+  footy.getMatches = function() {
+    return $http.get('/api/scraper')
+      .then(getData);
+    //   .then(function(matches){
+    //   return matches.data
+    // })
+  }
 
-		// .then(videos => return videos.data)
-	}
+  footy.getVideos = function(criteria) {
+    return $http.get('/api/query/' + criteria)
+      .then(getData);
+    //   .then(function(matches){
+    //   return matches.data
+    // })
+  }
 
-return footy;
-}
+  return footy;
+})

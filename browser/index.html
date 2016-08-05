@@ -1,15 +1,42 @@
- <link href="/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="/bootstrap-dark.css" rel="stylesheet" />
-    <link href="/style.css" rel="stylesheet" />
-    <script src="/angular/angular.js" defer></script>
-    <script src="/angular-ui-router/release/angular-ui-router.js" defer></script>
-    <script src="/angular-messages/angular-messages.js" defer></script>
-    <script src="/js/module.js" defer></script>
+<!DOCTYPE html>
+<html>
 
-    <script src="/js/footy/footy.controller.js" defer></script>
-    <script src="/js/footy/footy.factory.js" defer></script>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MyHomePage</title>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <script src="/angular/angular.js"></script>
+  <script src="/angular-animate/angular-animate.js" defer></script>
+  <script src="/angular-ui-router/release/angular-ui-router.js" defer></script>
+  <script src="/angular-ui-bootstrap/ui-bootstrap.js" defer></script>
+  <script src="/angular-ui-bootstrap/ui-bootstrap-tpls.js" defer></script>
+  <script src="/socket.io-client/socket.io.js" defer></script>
+  <script src="/js/main.js" defer></script>
+  <script src="/js/footy/footy.controller.js" defer></script>
+  <script src="/js/footy/footy.factory.js" defer></script>
+</head>
 
+<body ng-app="footy">
+  <div class="navbar transparent navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" ui-sref="home">Home</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav"></ul>
+      </div>
+    </div>
+  </div>
+  <ui-view></ui-view>
+</body>
 
-    <p>HI</p>
-
-    <p>{{videos}}</p>
+</html>

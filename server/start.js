@@ -1,28 +1,21 @@
-'use strict';
-/* eslint-disable global-require */
-
+var http = require('http');  //require http from node.
+var server = http.createServer();  //create a server using http.createServer()
+var Promise = require('bluebird');  //require promise from bluebird library
 var chalk = require('chalk');
-var express = require('express');
-var app = express();
 
-// Create a node server instance! cOoL!
-var server = require('http').createServer();
 
-var createApplication = function () {
-    var app = require('./app');
-    server.on('request', app); // Attach the Express application.
-};
+
+//turn on the server via request, and require ./index.js middleware
+server.on('request', require('./index'));
+
 
 var startServer = function () {
 
     var PORT = process.env.PORT || 1337;
 
     server.listen(PORT, function () {
-        console.log(chalk.blue('Server started on port', chalk.magenta(PORT)));
+        console.log(chalk.blue('Magic Happens on Port:', chalk.magenta(PORT)));
     });
 
-};
-
-startServer()
-createApplication();
+}();
 

@@ -1,7 +1,6 @@
 "use strict";
 const lengthFromProperties = require("../utils").lengthFromProperties;
 const getAttributeValue = require("./attributes").getAttributeValue;
-const idlUtils = require("./generated/utils");
 
 const privates = Symbol("HTMLCollection internal slots");
 
@@ -50,8 +49,7 @@ function resetHTMLCollectionTo(collection, els) {
   }
 
   for (let i = 0; i < els.length; ++i) {
-    const wrapped = idlUtils.wrapperForImpl(els[i]);
-    collection[i] = wrapped ? wrapped : els[i];
+    collection[i] = els[i];
   }
   collection[privates].length = els.length;
 
@@ -69,9 +67,7 @@ function resetHTMLCollectionTo(collection, els) {
   }
 
   function addIfAttrPresent(el, attr) {
-    const impl = idlUtils.implForWrapper(el);
-    const toTest = impl ? impl : el;
-    const value = getAttributeValue(toTest, attr);
+    const value = getAttributeValue(el, attr);
 
     if (value === null || value === "") {
       return;
