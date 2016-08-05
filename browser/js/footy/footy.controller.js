@@ -25,10 +25,13 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce) {
   var vid = vidStr.filter(function(n) {
     return n != "";
   })
-
-  
-
+  vid = vid.splice(0, 9);
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
+
+
+
+  $scope.video = {src: vid}
+
 })
