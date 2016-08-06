@@ -21,7 +21,7 @@ app.config(function($stateProvider) {
   })
 })
 
-app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, matches) {
+app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, matches, FootyFactory) {
 
 
   var vidStr = reccentMatches.toString().split(",");
@@ -56,8 +56,6 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
     }, 5000)
   }
 
-
-
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
@@ -70,36 +68,68 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
     }
   }
 
+  //<-----------parse match data functions-------------->
+  var firstData = matches;
+  var secondData;
 
-  var convert = function(matches){
-  arr = []
-  for(var i = 0; i<matches.length; i++){
-    matchArr = []
-    var awayT  = String(matches[i].awayTeam.name)
-    var awayG = String(matches[i].awayGoals)
-    var homeT  = String(matches[i].homeTeam.name)
-    var homeG = String(matches[i].homeGoals)
-    matchArr.push(homeT)
-    matchArr.push(homeG)
-    matchArr.push(awayT)
-    matchArr.push(awayG)
-    arr.push(matchArr) 
+  // function getMatches() {
+  //   setTimeout(function() {
+  //     secondData = FootyFactory.getScores()
+  //     .then(res => convert(res))
+  //     .then(converted => diff(firstData, converted))
+  //     .then(final => final)
+  //   }, 2000)
+  // }
+
+  
+    setTimeout(function() {
+
+      secondData = FootyFactory.getScores()
+        .then(function(res) {
+          console.log("here")
+          return convert(res)
+        })
+        .then(function(converted) {
+          console.log("here1")
+          return diff(firstData, converted)
+        })
+        .then(function(final) {
+          console.log(final);
+          return final
+        })
+    }, 60000)
+
+
+
+  function convert(matches) {
+    arr = []
+    for (var i = 0; i < matches.length; i++) {
+      matchArr = []
+      var awayT = String(matches[i].awayTeam.name)
+      var awayG = String(matches[i].awayGoals)
+      var homeT = String(matches[i].homeTeam.name)
+      var homeG = String(matches[i].homeGoals)
+      matchArr.push(homeT)
+      matchArr.push(homeG)
+      matchArr.push(awayT)
+      matchArr.push(awayG)
+      arr.push(matchArr)
+    }
+    return arr
   }
-  return arr 
-}
 
 
-
-  var diff = function (firstinterval, secondinterval){
+  function diff(firstinterval, secondinterval) {
     updated = []
-    for(var i = 0; i < firstinterval.length; i++){
-      for(var j = 0; j < secondinterval.length; j++){
-        if(firstinterval[i][0] == secondinterval[j][0] && (firstinterval[i][1] != secondinterval[j][1] || firstinterval[i][3] != secondinterval[j][3])) {
-          updated.push(secondinterval[j][0] + "-" +secondinterval[j][2], secondinterval[j][1] + ":" + secondinterval[j][3])
-          }
-       
+    for (var i = 0; i < firstinterval.length; i++) {
+      for (var j = 0; j < secondinterval.length; j++) {
+        if (firstinterval[i][0] == secondinterval[j][0] && (firstinterval[i][1] != secondinterval[j][1] || firstinterval[i][3] != secondinterval[j][3])) {
+          updated.push(secondinterval[j][0] + "-" + secondinterval[j][2], secondinterval[j][1] + ":" + secondinterval[j][3])
+        }
+
       }
-    }return (updated)
+    }
+    return updated;
   }
 
 
