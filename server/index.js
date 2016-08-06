@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 //this is to grab routes files.
 var query = require('./routes/query');
 var scraper = require('./routes/scraper')
+var scores = require('./routes/scores')
 // remember to plug in your router and any other middleware you may need here.
 
 module.exports = app;
@@ -24,6 +25,8 @@ app.use(express.static(browserPath));
 
 app.use('/api/query', query);
 app.use('/api/scraper', scraper);
+app.use('/api/scores', scores);
+// app.use('/api/scores', scores); 
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);

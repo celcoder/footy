@@ -2,6 +2,9 @@
   <div class='row'>
     <div class="col-md-4" ng-repeat="video in video.src">
       <iframe id="videos" width='350' height='230' ng-src="{{trustSrc(video)}}" frameborder='10' allowfullscreen allowtransparency="true"></iframe>
+
+      <div>{{matches}}</div>
+
     </div>
   </div>
 </div>
