@@ -71,5 +71,36 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
   }
 
 
+  var convert = function(matches){
+  arr = []
+  for(var i = 0; i<matches.length; i++){
+    matchArr = []
+    var awayT  = String(matches[i].awayTeam.name)
+    var awayG = String(matches[i].awayGoals)
+    var homeT  = String(matches[i].homeTeam.name)
+    var homeG = String(matches[i].homeGoals)
+    matchArr.push(homeT)
+    matchArr.push(homeG)
+    matchArr.push(awayT)
+    matchArr.push(awayG)
+    arr.push(matchArr) 
+  }
+  return arr 
+}
+
+
+
+  var diff = function (firstinterval, secondinterval){
+    updated = []
+    for(var i = 0; i < firstinterval.length; i++){
+      for(var j = 0; j < secondinterval.length; j++){
+        if(firstinterval[i][0] == secondinterval[j][0] && (firstinterval[i][1] != secondinterval[j][1] || firstinterval[i][3] != secondinterval[j][3])) {
+          updated.push(secondinterval[j][0] + "-" +secondinterval[j][2], secondinterval[j][1] + ":" + secondinterval[j][3])
+          }
+       
+      }
+    }return (updated)
+  }
+
 
 });
