@@ -7,8 +7,8 @@ var d = new Date();
 var d2 = new Date();
 var d3 = new Date()
 
-d2.setHours(d.getHours() +6);
-d3.setHours(d.getHours()+7)
+d2.setHours(d.getHours() + 6);
+d3.setHours(d.getHours()+ 7)
 
 console.log(d2)
 console.log(d3)
