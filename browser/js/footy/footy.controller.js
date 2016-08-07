@@ -32,11 +32,8 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
   $scope.trustSrc = function(src) {
     return $sce.trustAsResourceUrl(src);
   }
-
-
-
   $scope.video = { src: vid }
-
+  $scope.displayData = ["hello", "game"];
   // <---------------------------modal box------------------------------------->
   var modal = document.getElementById('myModal');
 
@@ -46,14 +43,14 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
   // Get the <span> element that closes the modal
   var span = document.getElementsByClassName("close")[0];
 
-  // When the user clicks on the button, open the modal 
-  btn.onclick = function() {
+//<----to display the modal on change in Event ------>
+  function display() {
     modal.style.display = "block";
     var audio = document.getElementById("audio");
     audio.play();
     setTimeout(function() {
-      modal.style.display = "none"
-    }, 5000)
+      modal.style.display = "none";
+    }, 7000)
   }
 
   // When the user clicks on <span> (x), close the modal
@@ -69,33 +66,28 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
   }
 
   //<-----------parse match data functions-------------->
-  var firstData = matches;
-  firstData = convert(firstData)
-  console.log(firstData)
+  var firstData = convert(matches);
   var secondData;
 
-
-  var nextData; 
-    setInterval(function() {
-      secondData = FootyFactory.getScores()
-        .then(function(res) {
-        // console.log(res);
-
-        nextData = res
-        return convert(res)
-        })
-        .then(function(converted) {
-          // console.log(converted)
-          // console.log(firstData)
-          return diff(firstData, converted)
-        })
-        .then(function(final) {
-          firstData = convert(nextData)
-          // console.log(convert(firstData));
-          console.log(final);
-          return final
-        })
-    }, 10000)
+  setInterval(function() {
+    secondData = FootyFactory.getScores()
+      .then(function(res) {
+        secondData = convert(res);
+        return secondData;
+      })
+      .then(function(convertedData) {
+        return diff(firstData, convertedData)
+      })
+      .then(function(final) {
+        firstData = secondData;
+        console.log(final);
+        if(final.length) { 
+          $scope.displayData = final; 
+          display();  
+        } 
+        return final;
+      })
+  }, 10000)
 
 
 
@@ -107,10 +99,7 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
       var awayG = String(matches[i].awayGoals)
       var homeT = String(matches[i].homeTeam.name)
       var homeG = String(matches[i].homeGoals)
-      matchArr.push(homeT)
-      matchArr.push(homeG)
-      matchArr.push(awayT)
-      matchArr.push(awayG)
+      matchArr.push(homeT, homeG, awayT, awayG);
       arr.push(matchArr)
     }
     return arr

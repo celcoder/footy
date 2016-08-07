@@ -32,7 +32,7 @@ router.get('/', function (req, res, next) {
 	        // console.log(competitions);
 	    })
 	    .catch(function (err) {
-	        // API call failed... 
+	        console.log(err);
 	    });
 
 })

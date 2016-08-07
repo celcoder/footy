@@ -19,15 +19,11 @@ app.factory('FootyFactory', function($http) {
   footy.getVideos = function(criteria) {
     return $http.get('/api/query/' + criteria)
       .then(getData);
-
-    //   .then(function(matches){
-    //   return matches.data
-    // })
   }
 
   footy.getScores = function () {
     return $http.get('/api/scores/')
-    .then(res => res.data);
+    .then(getData);
   }
 
   return footy;
