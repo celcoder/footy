@@ -70,34 +70,32 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
 
   //<-----------parse match data functions-------------->
   var firstData = matches;
+  firstData = convert(firstData)
+  console.log(firstData)
   var secondData;
 
-  // function getMatches() {
-  //   setTimeout(function() {
-  //     secondData = FootyFactory.getScores()
-  //     .then(res => convert(res))
-  //     .then(converted => diff(firstData, converted))
-  //     .then(final => final)
-  //   }, 2000)
-  // }
 
-  
-    setTimeout(function() {
-
+  var nextData; 
+    setInterval(function() {
       secondData = FootyFactory.getScores()
         .then(function(res) {
-          console.log("here")
-          return convert(res)
+        // console.log(res);
+
+        nextData = res
+        return convert(res)
         })
         .then(function(converted) {
-          console.log("here1")
+          // console.log(converted)
+          // console.log(firstData)
           return diff(firstData, converted)
         })
         .then(function(final) {
+          firstData = convert(nextData)
+          // console.log(convert(firstData));
           console.log(final);
           return final
         })
-    }, 60000)
+    }, 10000)
 
 
 
