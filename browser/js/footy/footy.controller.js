@@ -53,6 +53,9 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
     }, 7000)
   }
 
+  btn.onclick = function(){
+  display()
+  }
   // When the user clicks on <span> (x), close the modal
   span.onclick = function() {
     modal.style.display = "none";
@@ -73,6 +76,7 @@ app.controller('FootyCtrl', function($scope, $state, reccentMatches, $sce, match
     secondData = FootyFactory.getScores()
       .then(function(res) {
         secondData = convert(res);
+        console.log(secondData)
         return secondData;
       })
       .then(function(convertedData) {
